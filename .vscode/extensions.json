@@ -1,10 +1,10 @@
 {
   "recommendations": [
+    "ms-azuretools.vscode-azurefunctions",
     "ms-vscode.vscode-node-azure-pack",
     "streetsidesoftware.code-spell-checker",
     "davidanson.vscode-markdownlint",
     "dbaeumer.vscode-eslint",
-    "DavidAnson.vscode-markdownlint",
     "robertohuertasm.vscode-icons",
     "coenraads.bracket-pair-colorizer",
     "formulahendry.auto-rename-tag",
@@ -13,6 +13,7 @@
     "material icon theme",
     "hookyqr.beautify",
     "esbenp.prettier-vscode",
-    "christian-kohler.path-intellisense"
+    "christian-kohler.path-intellisense",
+    "ms-vscode.azure-account"
   ]
 }
