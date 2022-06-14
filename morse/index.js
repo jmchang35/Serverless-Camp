@@ -10,7 +10,7 @@ module.exports = async function (context, req) {
     else {
         code = morse.textToMorse(plaintext);
     }
-    
+    //test
 
     context.res = {
         // status: 200, /* Defaults to 200 */
