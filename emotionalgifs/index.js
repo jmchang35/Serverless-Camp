@@ -4,40 +4,37 @@ const fetch = require('node-fetch');
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    // here's your boundary:
     const boundary = multipart.getBoundary(req.headers['content-type']);
-
-    // TODO: assign the body variable the correct value
-    const body = req.body
-
-    // parses body 
+    const body = req.body;
     const parts = multipart.Parse(body, boundary);
 
-    //module.exports function
-    //analyze the image
-    let emotions = result[0].facecAttributes.emotion;
-    let objects = Object.values(emotions);
+    let result = await analyzeImage(parts[0].data);
 
+    let emotions = result[0].faceAttributes.emotion;
+    let objects = Object.values(emotions);
     const main_emotion = Object.keys(emotions).find(key => emotions[key] === Math.max(...objects));
-     
-    const result = await analyzeImage(parts[0].data);
+    const API_KEY = process.env.GIFKEY;
+    const resp = await fetch("https://api.giphy.com/v1/gifs/translate?api_key=" + API_KEY + 
+    "&limit=1&s="
+     + main_emotion);
+    const jsonData = await resp.json();
+
+    context.log(jsonData);
     context.res = {
-        body: {
-            main_emotion
-        }
+        // status: 200, /* Defaults to 200 */
+        body: 
+        jsonData.data.url
     };
     console.log(result)
     context.done();
-
-
 }
 
 async function analyzeImage(img) {
-    //const subscriptionKey = process.env.SUBSCRIPTIONKEY;
-    const subscriptionKey  = '2a9b4a4d18004a49b25c9f91484ef4a6'
-    //const uriBase = process.env.ENDPOINT + '/face/v1.0/detect';
-    const uriBase = 'https://maxsfaceapi.cognitiveservices.azure.com' 
-    + '/face/v1.0/detect';
+    const subscriptionKey = process.env.SUBSCRIPTIONKEY;
+    
+    const uriBase = process.env.ENDPOINT + '/face/v1.0/detect';
+    
+    
 
     let params = new URLSearchParams({
         'returnFaceId': 'true',
