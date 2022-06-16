@@ -28,10 +28,10 @@ module.exports = async function (context, req) {
 }
 
 async function analyzeImage(img) {
-    const subscriptionKey = process.env.SUBSCRIPTIONKEY;
-    //const subscriptionKey  = '2a9b4a4d18004a49b25c9f91484ef4a6'
-    const uriBase = process.env.ENDPOINT + '/face/v1.0/detect';
-    //const uriBase = 'https://maxsfaceapi.cognitiveservices.azure.com' 
+    //const subscriptionKey = process.env.SUBSCRIPTIONKEY;
+    const subscriptionKey  = '2a9b4a4d18004a49b25c9f91484ef4a6'
+    //const uriBase = process.env.ENDPOINT + '/face/v1.0/detect';
+    const uriBase = 'https://maxsfaceapi.cognitiveservices.azure.com' 
     + '/face/v1.0/detect';
 
     let params = new URLSearchParams({
@@ -41,7 +41,7 @@ async function analyzeImage(img) {
 
     let resp = await fetch(uriBase + '?' + params.toString(), {
         method: 'POST',  //WHAT TYPE OF REQUEST?
-        body: 'img',  //WHAT ARE WE SENDING TO THE API?
+        body: img,  //WHAT ARE WE SENDING TO THE API?
         headers: {
             'Content-Type': 'application/octet-stream',
             "Ocp-Apim-Subscription-Key": subscriptionKey
