@@ -1,5 +1,6 @@
 var multipart = require("parse-multipart")
 const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
+
 const { BlobServiceClient } = require("@azure/storage-blob");
 
 module.exports = async function (context, req) {
@@ -7,8 +8,13 @@ module.exports = async function (context, req) {
 
     var boundary = multipart.getBoundary(req.headers['content-type']);
     var body = req.body;
-    var parsedBody = multipart.Parse(body, boundary);
 
+    var responseMessage = ""
+
+    try {
+
+    var parsedBody = multipart.Parse(body, boundary);
+    context.log(parsedBody);
     let filetype = parsedBody[0].type;
     let ext;
     if (filetype == "image/png") {
@@ -21,21 +27,26 @@ module.exports = async function (context, req) {
         username = "invalidimage"
         ext = "";
     }
-    let responseMessage = await uploadFile(parsedBody, ext);
+    var fileName = req.headers['codename'];
+    responseMessage = await uploadFile(parsedBody, ext, fileName);
+} catch (err) {
+    context.log(err)
+    context.log("Undefined body image")
+    responseMessage =  "Sorry! No image attatched."
+}
     context.res = {
         // status: 200, /* Defaults to 200 */
         body: responseMessage
     };
 }
 
-async function uploadFile(parsedBody, ext) {
+async function uploadFile(parsedBody, ext, fileName) {
     const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
     const containerName = "images";
     const containerClient = blobServiceClient.getContainerClient(containerName);    // Get a reference to a container
-    const blobName = 'test.' + ext;    // Create the container
+    const blobName = fileName + "." + ext;    // Create the container
     const blockBlobClient = containerClient.getBlockBlobClient(blobName); // Get a block blob client
     const uploadBlobResponse = await blockBlobClient.upload(parsedBody[0].data, parsedBody[0].data.length);
     return "File Saved";
-
 
 }
