@@ -49,5 +49,4 @@ async function uploadFile(parsedBody, ext, fileName) {
     const uploadBlobResponse = await blockBlobClient.upload(parsedBody[0].data, parsedBody[0].data.length);
     return "File Saved";
 
-
 }
