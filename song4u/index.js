@@ -63,7 +63,7 @@ async function analyzeImage(img, context){
 
     const params = new URLSearchParams({
         'returnFaceId': 'true',
-        'returnFaceAttributes': 'age'   
+        'returnFaceAttributes': 'age'    
     })
 
     const resp = await fetch(URI_BASE + "?" + params.toString(), {
