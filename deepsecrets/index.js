@@ -71,7 +71,7 @@ module.exports = async function (context, req) {
     let random_value = Math.floor(items.length * Math.random());
     const responseMessage = `Thanks 😊! Stored your secret "${message}". 😯 Someone confessed that: ${JSON.stringify(items[random_value].message)}`
     context.res = {
-        // status: 200, /* Defaults to 200 */
+        
         body: responseMessage
     };
 }
