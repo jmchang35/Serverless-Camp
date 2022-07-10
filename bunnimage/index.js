@@ -28,3 +28,27 @@ bunnForm.addEventListener('submit', async function (event) {
    
 
 });
+
+const downloadButton = document.getElementById("button1")
+
+downloadButton.addEventListener("click", async function(event) {
+    var username = document.getElementById("downloadusername").value;
+    console.log("attempting to get your image")
+    const url = "https://bitprojectweek1.azurewebsites.net/api/bunnimage-download?code=06AbXHX11AWz4jdNUPJgnow2exmspbzjRs_nbnv7z5UIAzFuBkAUSQ==";
+
+    const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+            username: username, 
+        }
+    })
+
+    const data = await resp.json();
+
+    console.log("image has been received");
+    
+    console.log(data);
+
+    window.open(data.downloadUri, "_self")
+
+}); 
