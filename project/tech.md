@@ -25,4 +25,3 @@
 
 ### Flowchart
 
-![image](https://user-images.githubusercontent.com/89932840/179419190-448053e2-ebba-4ddc-855a-de168771ef41.png)
