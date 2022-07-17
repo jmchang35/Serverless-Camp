@@ -3,27 +3,26 @@
 ### Azure Services
 
 **Name of Service**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+- azure functions to run the program
+- cosmos db to store unique pinpoints
 
 ### APIs
 
 **Name of API**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+- azure maps api to calculate routes
 
 ### Packages/Libraries/Databases
 
 **Name of Packages/Library/Database**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+- npm fetch to grab stuff from user 
 
 ### Front-end Languages
 
 **Name of Language**
-- [replace with bullet list of what purpose(s) it serves for my project]
-- [include how it will interact with other components of your project listed above/below]
+- html
+- css
+- bootstrap
 
 ### Flowchart
 
-[Replace with image of final flowchart]
+![image](https://user-images.githubusercontent.com/89932840/179418370-1cdfece4-4d86-4462-998c-8a25d5e271bf.png)
