@@ -4,17 +4,17 @@
 ## Week 1
 
 ### [Task Name]:
-
+finish front html 
 #### Description
 - [Replace with description]
 
 #### ETA:
 > How long do you think it will take to complete this?
-- [Replace with eta]
+- a day
 
 #### Objective:
 > Checklist of everything you need to do to complete this issue
-- [ ] [Replace with small task  1]
+- [ ] complete front end
 - [ ] [Replace with small task  2]
 - [ ] [Replace with small task  3]
 
