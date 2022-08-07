@@ -41,7 +41,7 @@ async function main() {
 
         // query to return all items
         const querySpec = {
-            query: "SELECT b, ST_DISTANCE(b.location, {"type": "Point", "coordinates":[-86.91127264673787, 40.423789700013344]}) myDistance FROM bathroomscontainerid b WHERE ST_DISTANCE(b.location, {"type": "Point", "coordinates":[-86.91127264673787, 40.423789700013344]}) < 100"
+            query: "SELECT b, ST_DISTANCE(b.location, {'type': 'Point', 'coordinates':[-86.91127264673787, 40.423789700013344]}) myDistance FROM bathroomscontainerid b WHERE ST_DISTANCE(b.location, {'type': 'Point', 'coordinates':[-86.91127264673787, 40.423789700013344]}) < 100"
         };
 
         // read all items in the Items container
@@ -53,7 +53,7 @@ async function main() {
         items.forEach(item => {
             console.log(`${item.id} - ${item.myDistance}- ${item.name}`);
         });
-
+        result.innerHTML = 'Closest place is ' + items.name;
 
     } catch (err) {
         console.log(err.message);
@@ -82,7 +82,8 @@ async function main() {
      + ", " + "Longitude: " + position.coords.longitude + ")";
      user_coords[0] = position.coords.longitude;
      user_coords[1] = position.coords.latitude;
-     main();
+     
+     
  }
  
  // Define callback function for failed attempt
