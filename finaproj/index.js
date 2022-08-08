@@ -1,6 +1,5 @@
-const CosmosClient = require("@azure/cosmos").CosmosClient;
-const config = require("./config");
-const dbContext = require("./data/databaseContext");
+
+
 
 var result;
 var user_coords = new Array(0,0);
@@ -21,47 +20,49 @@ module.exports = async function (context, req) {
     };
 }
 
-
-
+const CosmosClient = require("@azure/cosmos").CosmosClient;
+const config = require("./config");
 
 async function main() {
-    const { endpoint, key, databaseId, containerId } = config;
+  
+  // <CreateClientObjectDatabaseContainer>
+  const { endpoint, key, databaseId, containerId } = config;
 
-    const client = new CosmosClient({ endpoint, key });
+  const client = new CosmosClient({ endpoint, key });
+
+  const database = client.database(databaseId);
+  const container = database.container(containerId);
+
+
+  
+  try {
+    // <QueryItems>
+    console.log(`Querying container: Items`);
+
+    // query to return all items
+    const querySpec = {
+      query: "SELECT b, ST_DISTANCE(b.location, {'type': 'Point', 'coordinates':[-86.91127264673787, 40.423789700013344]}) myDistance FROM bathroomscontainerid b WHERE ST_DISTANCE(b.location, {'type': 'Point', 'coordinates':[-86.91127264673787, 40.423789700013344]}) < 100"
+    };
     
-    const database = client.database(databaseId);
-    const container = database.container(containerId);
+    // read all items in the Items container
+    const { resources: items } = await container.items
+      .query(querySpec)
+      .fetchAll();
+      
+    items.forEach(item => {
+      console.log(`${item.b.id} - ${item.b.name} - ${item.myDistance}`);
+    });
+    // </QueryItems>
     
-    // Make sure Tasks database is already setup. If not, create it.
-    await dbContext.create(client, databaseId, containerId);
-
-    try {
-
-        console.log(`Querying container: Items`);
-
-        // query to return all items
-        const querySpec = {
-            query: "SELECT b, ST_DISTANCE(b.location, {'type': 'Point', 'coordinates':[-86.91127264673787, 40.423789700013344]}) myDistance FROM bathroomscontainerid b WHERE ST_DISTANCE(b.location, {'type': 'Point', 'coordinates':[-86.91127264673787, 40.423789700013344]}) < 100"
-        };
-
-        // read all items in the Items container
-        const { resources: items } = await container.items
-            .query(querySpec)
-            .fetchAll();
-        console.log(items);
-
-        items.forEach(item => {
-            console.log(`${item.id} - ${item.myDistance}- ${item.name}`);
-        });
-        result.innerHTML = 'Closest place is ' + items.name;
-
-    } catch (err) {
-        console.log(err.message);
-    }
+    
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
+main();
 
-
+// for the button to grab user location
   
  function showPosition() {
      // Store the element where the page displays the result
