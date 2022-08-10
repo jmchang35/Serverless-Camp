@@ -1,10 +1,10 @@
 
 
 
-var result;
-var user_coords = new Array(0,0);
-var distance;
 
+
+const CosmosClient = require("@azure/cosmos").CosmosClient;
+const config = require("./config");
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
@@ -20,10 +20,9 @@ module.exports = async function (context, req) {
     };
 }
 
-const CosmosClient = require("@azure/cosmos").CosmosClient;
-const config = require("./config");
 
-async function main() {
+
+async function main(lon, lat) {
   
   // <CreateClientObjectDatabaseContainer>
   const { endpoint, key, databaseId, containerId } = config;
@@ -60,7 +59,7 @@ async function main() {
   }
 }
 
-main();
+
 
 // for the button to grab user location
   
@@ -81,9 +80,10 @@ main();
  function successCallback(position) {
      result.innerHTML = "Your current position is (" + "Latitude: " + position.coords.latitude 
      + ", " + "Longitude: " + position.coords.longitude + ")";
-     user_coords[0] = position.coords.longitude;
-     user_coords[1] = position.coords.latitude;
-     
+     var lon = position.coords.longitude;
+     var lat = position.coords.latitude;
+     main(lon, lat);
+     // make user coords local 
      
  }
  
