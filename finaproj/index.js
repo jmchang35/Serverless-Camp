@@ -12,7 +12,7 @@ module.exports = async function (context, req) {
   var lon = req.query.lot;
   var lat = req.query.lat;
   // const name = (req.query.name || (req.body && req.body.name));
-  // const responseMessage = name
+  // const responseessage = name
   //   ? "Hello, " + name + ". This HTTP triggered function executed successfully."
   //   : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
 
@@ -64,7 +64,7 @@ module.exports = async function (context, req) {
     });
     // </QueryItems>
 
-
+  let responseMessage = "Your nearest restroom is #" + id + " " + name;
   } catch (err) {
     console.log(err.message);
   }
@@ -101,9 +101,9 @@ function successCallback(position) {
     + ", " + "Longitude: " + position.coords.longitude + ")";
   var lon = position.coords.longitude;
   var lat = position.coords.latitude;
-  const respone = await fetch("https://purduepoopers.azurewebsites.net/api/finaproj?code=uTfoVSlEiRNp68i6Bw0MYpQHzvqgFR05zI0OWNKWvPu7AzFuc8wAiw==?lat=" + lat + "&lon=" + lon);
-  const myJson = await response.json();
-
+  const response = await fetch("https://purduepoopers.azurewebsites.net/api/finaproj?code=uTfoVSlEiRNp68i6Bw0MYpQHzvqgFR05zI0OWNKWvPu7AzFuc8wAiw==?lat=" + lat + "&lon=" + lon);
+  const json = await response.json();
+  result.innerHTML = " " json.responseMessage;
 }
 
 // Define callback function for failed attempt
