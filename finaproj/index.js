@@ -101,9 +101,9 @@ function successCallback(position) {
     + ", " + "Longitude: " + position.coords.longitude + ")";
   var lon = position.coords.longitude;
   var lat = position.coords.latitude;
-  const response = await fetch("https://purduepoopers.azurewebsites.net/api/finaproj?code=uTfoVSlEiRNp68i6Bw0MYpQHzvqgFR05zI0OWNKWvPu7AzFuc8wAiw==?lat=" + lat + "&lon=" + lon);
+  const response = await fetch("https://purduepoopers.azurewebsites.net/api/finaproj?code=uTfoVSlEiRNp68i6Bw0MYpQHzvqgFR05zI0OWNKWvPu7AzFuc8wAiw==&lat=" + lat + "&lon=" + lon);
   const json = await response.json();
-  result.innerHTML = " " json.responseMessage;
+  result.innerHTML = " " + json.responseMessage;
 }
 
 // Define callback function for failed attempt
