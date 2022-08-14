@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@azure/cosmos": "^3.16.4"
+    "@azure/cosmos": "^3.16.4",
+    "node-fetch": "^3.2.10"
   },
   "description": ""
 }
