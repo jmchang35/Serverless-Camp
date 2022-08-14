@@ -64,7 +64,7 @@ module.exports = async function (context, req) {
     });
     // </QueryItems>
 
-  let responseMessage = "Your nearest restroom is #" + id + " " + name;
+  var responseMessage = "Your nearest restroom is #" + id + " " + name;
   } catch (err) {
     console.log(err.message);
   }
@@ -96,14 +96,12 @@ function showPosition() {
 };
 
 // Define callback function for successful attempt
-function successCallback(position) {
-  result.innerHTML = "Your current position is (" + "Latitude: " + position.coords.latitude
-    + ", " + "Longitude: " + position.coords.longitude + ")";
+async function successCallback(position) {
   var lon = position.coords.longitude;
   var lat = position.coords.latitude;
-  const response = await fetch("https://purduepoopers.azurewebsites.net/api/finaproj?code=uTfoVSlEiRNp68i6Bw0MYpQHzvqgFR05zI0OWNKWvPu7AzFuc8wAiw==&lat=" + lat + "&lon=" + lon);
-  const json = await response.json();
-  result.innerHTML = " " + json.responseMessage;
+  const response = await fetch("http://localhost:7071/api/finaproj?" + lat + "&lon=" + lon);
+  var text = await response.text();
+  result.innerHTML = text + ". Happy pooping!";
 }
 
 // Define callback function for failed attempt
