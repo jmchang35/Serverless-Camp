@@ -7,12 +7,12 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "@azure/cosmos": "^3.16.4",
     "bootstrap": "^5.2.0-beta1",
     "morse-code-converter": "^1.0.2",
     "node-fetch": "^2.6.7",
     "parse-multipart": "^1.0.4"
   },
-  "devDependencies": {},
   "main": "index.js",
   "repository": {
     "type": "git",
